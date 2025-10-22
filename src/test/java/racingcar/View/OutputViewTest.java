@@ -31,4 +31,12 @@ public class OutputViewTest {
         assertThat(outPutContent.toString().trim())
                 .isEqualTo("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
     }
+
+    @Test
+    @DisplayName("시도할 횟수 입력 받기 위한 출력 확인")
+    void requestAttemptCount() {
+        outputView.requestAttemptCount();
+        assertThat(outPutContent.toString().trim())
+                .isEqualTo("시도할 횟수는 몇 회인가요?");
+    }
 }

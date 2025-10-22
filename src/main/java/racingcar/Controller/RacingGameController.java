@@ -32,5 +32,7 @@ public class RacingGameController {
         List<String> carNamesList = new ArrayList<>(carNameSplitterService.splitCarName(carNamesInput));
         carNamesList = fillEmptyCarNamesService.fillEmptyCarNames(carNamesList);
         validatorService.validateCarName(carNamesList);
+        outputView.requestAttemptCount();
+        int attemptCountInput = inputView.readAttemptCount();
     }
 }
