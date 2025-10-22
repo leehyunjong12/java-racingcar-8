@@ -26,4 +26,16 @@ public class ValidatorService {
             throw new IllegalArgumentException("중복된 자동차 이름이 있습니다.");
         }
     }
+
+    public void validateAttemptCount(int attemptCount) {
+        validateAttemptCountIsPositive(attemptCount);
+    }
+
+
+    private void validateAttemptCountIsPositive(int attemptCount) {
+        if (attemptCount <= 0) {
+            throw new IllegalArgumentException("시도할 횟수가 양수가 아닙니다.");
+        }
+    }
+
 }

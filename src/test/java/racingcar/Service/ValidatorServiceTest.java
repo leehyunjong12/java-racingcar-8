@@ -33,4 +33,13 @@ public class ValidatorServiceTest {
                 .isInstanceOf(IllegalArgumentException.class).hasMessage("중복된 자동차 이름이 있습니다.");
 
     }
+
+    @Test
+    @DisplayName("시도할 횟수 입력이 양수가 아닐 떄")
+    void validateAttemptCount() {
+        int attemptCount = -1;
+        Assertions.assertThatThrownBy(() -> validatorService.validateAttemptCount(attemptCount))
+                .isInstanceOf(IllegalArgumentException.class).hasMessage("시도할 횟수가 양수가 아닙니다.");
+
+    }
 }

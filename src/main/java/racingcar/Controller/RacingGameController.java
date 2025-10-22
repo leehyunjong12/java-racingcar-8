@@ -34,5 +34,6 @@ public class RacingGameController {
         validatorService.validateCarName(carNamesList);
         outputView.requestAttemptCount();
         int attemptCountInput = inputView.readAttemptCount();
+        validatorService.validateAttemptCount(attemptCountInput);
     }
 }
