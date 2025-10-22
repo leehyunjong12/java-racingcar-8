@@ -11,7 +11,10 @@ public class FillEmptyCarNamesService {
         return carNamesList;
     }
 
-    private String fillIfEmpty(String name) {
-        return name.isEmpty() ? "NULL" + (nullIndex++) : name;
+    private String fillIfEmpty(String carName) {
+        if (carName.isEmpty()) {
+            return "NULL" + (nullIndex++);
+        }
+        return carName;
     }
 }
