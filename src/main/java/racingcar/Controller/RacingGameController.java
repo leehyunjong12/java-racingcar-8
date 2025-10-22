@@ -28,8 +28,8 @@ public class RacingGameController {
 
     public void runRacingGame() {
         outputView.requestCarNames();
-        String carNames = inputView.readCarNames();
-        List<String> carNamesList = new ArrayList<>(carNameSplitterService.splitCarName(carNames));
+        String carNamesInput = inputView.readCarNames();
+        List<String> carNamesList = new ArrayList<>(carNameSplitterService.splitCarName(carNamesInput));
         carNamesList = fillEmptyCarNamesService.fillEmptyCarNames(carNamesList);
         validatorService.validateCarName(carNamesList);
     }
