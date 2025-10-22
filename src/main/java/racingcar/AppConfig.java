@@ -3,6 +3,7 @@ package racingcar;
 import racingcar.Controller.RacingGameController;
 import racingcar.Service.CarNameSplitterService;
 import racingcar.Service.FillEmptyCarNamesService;
+import racingcar.Service.ValidatorService;
 import racingcar.View.InputView;
 import racingcar.View.OutputView;
 
@@ -10,7 +11,7 @@ public class AppConfig {
 
     public RacingGameController racingGameController() {
         return new RacingGameController(inputView(), outputView(), carNameSplitterService(),
-                fillEmptyCarNamesService());
+                fillEmptyCarNamesService(), validatorService());
     }
 
     public InputView inputView() {
@@ -27,5 +28,9 @@ public class AppConfig {
 
     public FillEmptyCarNamesService fillEmptyCarNamesService() {
         return new FillEmptyCarNamesService();
+    }
+
+    public ValidatorService validatorService() {
+        return new ValidatorService();
     }
 }
