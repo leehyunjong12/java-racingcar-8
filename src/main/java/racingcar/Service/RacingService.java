@@ -14,4 +14,8 @@ public class RacingService {
     public void createRacingCars(List<String> carNamesList) {
         racingCarRepository.setCars(carNamesList);
     }
+
+    public void runSingleRound() {
+        racingCarRepository.moveAllCarsRandomly();
+    }
 }

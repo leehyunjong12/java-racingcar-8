@@ -33,4 +33,35 @@ public class RacingServiceTest {
                 .containsExactly("pobi", "woni", "jun");
     }
 
+    @Test
+    @DisplayName("라운드 10번 진행해서 전진이 있었는지 확인")
+    void runSingleRound() {
+        List<String> carNames = List.of("pobi", "woni", "jun");
+        racingService.createRacingCars(carNames);
+
+        List<RacingCar> carsBefore = racingCarRepository.getRacingCars();
+        List<Integer> positionsBefore = carsBefore.stream()
+                .map(RacingCar::getPosition)
+                .toList();
+
+        boolean atLeastOneMoved = false;
+        int attempts = 10; // 반복 횟수
+        for (int j = 0; j < attempts; j++) {
+            racingService.runSingleRound();
+
+            List<RacingCar> carsAfter = racingCarRepository.getRacingCars();
+            for (int i = 0; i < carsAfter.size(); i++) {
+                if (carsAfter.get(i).getPosition() > positionsBefore.get(i)) {
+                    atLeastOneMoved = true;
+                    break;
+                }
+            }
+            if (atLeastOneMoved) {
+                break;
+            }
+        }
+
+        Assertions.assertThat(atLeastOneMoved).isTrue();
+    }
+
 }

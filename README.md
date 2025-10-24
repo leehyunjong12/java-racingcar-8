@@ -27,7 +27,7 @@
 - [x]  시도 횟수 유효성 검사
 - [x]  자동차 모델들 생성
 - 시도 횟수만큼 아래 반복
-    - [ ]  한 라운드 진행
+    - [x]  한 라운드 진행
     - [ ]  진행 결과 출력
 - [ ]  우승자 식별
 - [ ]  우승자 명단 출력
@@ -46,7 +46,7 @@
     - [x]  입력 횟수가 양수가 아닐 때
 - RacingService
     - [x]  자동차 모델들 생성
-    - [ ]  한 라운드 진행
+    - [x]  한 라운드 진행
     - [ ]  진행 결과 반환
     - [ ]  우승자 식별 후 반환
 
@@ -68,5 +68,7 @@
 
 - InputView 테스트는 System.in을 사용하는 구조 때문에,
   각 테스트는 반드시 독립적으로 실행해야 합니다.
-- moveAllCarsRandomly 테스트는 Random 함수와 관련되어 있어,
+- 아래 테스트는 Random 함수와 관련되어 있어,
   확률을 높이는 방법으로 테스트를 실행하였지만 실패 확률이 매우 적게 있습니다.
+    - moveAllCarsRandomly(RacingCarRepositoryTest)
+    - runSingleRound(RacingServiceTest)
