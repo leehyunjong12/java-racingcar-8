@@ -9,4 +9,12 @@ public class OutputView {
     public void requestAttemptCount() {
         System.out.println("시도할 횟수는 몇 회인가요?");
     }
+
+    public void printRaceHeader() {
+        System.out.println("\n실행결과");
+    }
+
+    public void printRaceState(String currentStatus) {
+        System.out.println(currentStatus);
+    }
 }

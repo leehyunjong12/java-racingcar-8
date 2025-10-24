@@ -39,4 +39,27 @@ public class OutputViewTest {
         assertThat(outPutContent.toString().trim())
                 .isEqualTo("시도할 횟수는 몇 회인가요?");
     }
+
+    @Test
+    @DisplayName("레이스 시작 헤더 출력 확인")
+    void printRaceHeader() {
+        outputView.printRaceHeader();
+        assertThat(outPutContent.toString())
+                .isEqualTo("\n실행결과\n");
+    }
+
+    @Test
+    @DisplayName("라운드 진행 결과 출력")
+    void printRaceState() {
+        String currentState = "pobi : -\n"
+                + "woni : \n"
+                + "jun : -\n";
+        outputView.printRaceState(currentState);
+        assertThat(outPutContent.toString())
+                .isEqualTo("pobi : -\n"
+                        + "woni : \n"
+                        + "jun : -\n\n");
+    }
 }
+
+

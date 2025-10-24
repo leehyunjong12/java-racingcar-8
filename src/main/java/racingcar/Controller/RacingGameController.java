@@ -44,9 +44,11 @@ public class RacingGameController {
 
     private void runRace(List<String> carNamesList, int attemptCount) {
         racingService.createRacingCars(carNamesList);
+        outputView.printRaceHeader();
         for (int i = 0; i < attemptCount; i++) {
             racingService.runSingleRound();
             String currentStatus = racingService.getCarsStatus();
+            outputView.printRaceState(currentStatus);
         }
     }
 }
