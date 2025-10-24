@@ -31,15 +31,27 @@ public class RacingGameController {
     }
 
     public void runRacingGame() {
-        outputView.requestCarNames();
-        String carNamesInput = inputView.readCarNames();
-        List<String> carNamesList = new ArrayList<>(carNameSplitterService.splitCarName(carNamesInput));
-        carNamesList = fillEmptyCarNamesService.fillEmptyCarNames(carNamesList);
+        String carNamesInput = inputCarNames();
+        List<String> carNamesList = convertToCarNameList(carNamesInput);
         validatorService.validateCarName(carNamesList);
-        outputView.requestAttemptCount();
-        int attemptCountInput = inputView.readAttemptCount();
+        int attemptCountInput = inputAttemptCount();
         validatorService.validateAttemptCount(attemptCountInput);
         runRace(carNamesList, attemptCountInput);
+    }
+
+    private String inputCarNames() {
+        outputView.requestCarNames();
+        return inputView.readCarNames();
+    }
+
+    private List<String> convertToCarNameList(String carNames) {
+        List<String> carNamesList = new ArrayList<>(carNameSplitterService.splitCarName(carNames));
+        return fillEmptyCarNamesService.fillEmptyCarNames(carNamesList);
+    }
+
+    private int inputAttemptCount() {
+        outputView.requestAttemptCount();
+        return inputView.readAttemptCount();
     }
 
     private void runRace(List<String> carNamesList, int attemptCount) {
