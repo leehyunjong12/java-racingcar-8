@@ -1,6 +1,7 @@
 package racingcar;
 
 import racingcar.Controller.RacingGameController;
+import racingcar.Repository.RacingCarRepository;
 import racingcar.Service.CarNameSplitterService;
 import racingcar.Service.FillEmptyCarNamesService;
 import racingcar.Service.ValidatorService;
@@ -8,6 +9,8 @@ import racingcar.View.InputView;
 import racingcar.View.OutputView;
 
 public class AppConfig {
+
+    private final RacingCarRepository racingCarRepository = new RacingCarRepository();
 
     public RacingGameController racingGameController() {
         return new RacingGameController(inputView(), outputView(), carNameSplitterService(),
