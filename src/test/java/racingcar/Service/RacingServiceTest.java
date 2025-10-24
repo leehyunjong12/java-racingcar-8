@@ -76,4 +76,18 @@ public class RacingServiceTest {
         Assertions.assertThat(status).isEqualTo("pobi : \nwoni : \njun : \n");
     }
 
+    @Test
+    @DisplayName("우승자 식별 기능 확인")
+    void selectWinner() {
+        List<String> carNames = List.of("pobi", "woni", "jun");
+        racingService.createRacingCars(carNames);
+
+        List<RacingCar> racingCars = racingCarRepository.getRacingCars();
+        racingCars.get(0).move();
+        racingCars.get(2).move();
+
+        List<String> winners = racingService.selectWinners();
+        Assertions.assertThat(winners).containsExactlyInAnyOrder("pobi", "jun");
+    }
+
 }

@@ -50,5 +50,6 @@ public class RacingGameController {
             String currentStatus = racingService.getCarsStatus();
             outputView.printRaceState(currentStatus);
         }
+        List<String> winners = racingService.selectWinners();
     }
 }

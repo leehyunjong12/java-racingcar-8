@@ -22,4 +22,8 @@ public class RacingService {
     public String getCarsStatus() {
         return racingCarRepository.getCarsStatusAsString();
     }
+
+    public List<String> selectWinners() {
+        return racingCarRepository.getTopPositionCarNames();
+    }
 }
