@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import racingcar.Service.CarNameSplitterService;
 import racingcar.Service.FillEmptyCarNamesService;
+import racingcar.Service.RacingService;
 import racingcar.Service.ValidatorService;
 import racingcar.View.InputView;
 import racingcar.View.OutputView;
@@ -15,15 +16,18 @@ public class RacingGameController {
     CarNameSplitterService carNameSplitterService;
     FillEmptyCarNamesService fillEmptyCarNamesService;
     ValidatorService validatorService;
+    RacingService racingService;
 
     public RacingGameController(InputView inputView, OutputView outputView,
                                 CarNameSplitterService carNameSplitterService,
-                                FillEmptyCarNamesService fillEmptyCarNamesService, ValidatorService validatorService) {
+                                FillEmptyCarNamesService fillEmptyCarNamesService, ValidatorService validatorService,
+                                RacingService racingService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.carNameSplitterService = carNameSplitterService;
         this.fillEmptyCarNamesService = fillEmptyCarNamesService;
         this.validatorService = validatorService;
+        this.racingService = racingService;
     }
 
     public void runRacingGame() {
@@ -35,5 +39,10 @@ public class RacingGameController {
         outputView.requestAttemptCount();
         int attemptCountInput = inputView.readAttemptCount();
         validatorService.validateAttemptCount(attemptCountInput);
+        runRace(carNamesList, attemptCountInput);
+    }
+
+    private void runRace(List<String> carNamesList, int attemptCount) {
+        racingService.createRacingCars(carNamesList);
     }
 }

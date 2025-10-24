@@ -1,0 +1,17 @@
+package racingcar.Service;
+
+import java.util.List;
+import racingcar.Repository.RacingCarRepository;
+
+public class RacingService {
+
+    RacingCarRepository racingCarRepository;
+
+    public RacingService(RacingCarRepository racingCarRepository) {
+        this.racingCarRepository = racingCarRepository;
+    }
+
+    public void createRacingCars(List<String> carNamesList) {
+        racingCarRepository.setCars(carNamesList);
+    }
+}
