@@ -66,8 +66,6 @@
 
 ### 주의사항
 
-- InputView 테스트는 System.in을 사용하는 구조 때문에,
-  각 테스트는 반드시 독립적으로 실행해야 합니다.
 - 아래 테스트는 Random 함수와 관련되어 있어,
   확률을 높이는 방법으로 테스트를 실행하였지만 실패 확률이 매우 적게 있습니다.
     - moveAllCarsRandomly(RacingCarRepositoryTest)
