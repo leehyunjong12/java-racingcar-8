@@ -53,7 +53,7 @@
 ### Model
 
 - RacingCar
-- [ ]  모델 구현
+- [x]  모델 구현
 - (이름,전진 횟수, 전진 메서드, toString 함수 등)
 
 ### Repository
