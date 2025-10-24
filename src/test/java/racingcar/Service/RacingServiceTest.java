@@ -64,4 +64,16 @@ public class RacingServiceTest {
         Assertions.assertThat(atLeastOneMoved).isTrue();
     }
 
+    @Test
+    @DisplayName("한 라운드 진행 결과 출력 확인")
+    void getCarsStatus() {
+        List<String> carNames = List.of("pobi", "woni", "jun");
+        racingService.createRacingCars(carNames);
+
+        String status = racingCarRepository.getCarsStatusAsString();
+
+        // 초기 상태에서는 이동 전 position 0
+        Assertions.assertThat(status).isEqualTo("pobi : \nwoni : \njun : \n");
+    }
+
 }

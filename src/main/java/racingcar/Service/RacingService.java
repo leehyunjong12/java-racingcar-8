@@ -18,4 +18,8 @@ public class RacingService {
     public void runSingleRound() {
         racingCarRepository.moveAllCarsRandomly();
     }
+
+    public String getCarsStatus() {
+        return racingCarRepository.getCarsStatusAsString();
+    }
 }
