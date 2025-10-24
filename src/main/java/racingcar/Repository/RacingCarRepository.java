@@ -69,8 +69,7 @@ public class RacingCarRepository {
         if (racingCars.get(i).getPosition() > topPositionCars.getFirst().getPosition()) {
             topPositionCars.clear();
             topPositionCars.add(racingCars.get(i));
-        }
-        if (racingCars.get(i).getPosition() == topPositionCars.getFirst().getPosition()) {
+        } else if (racingCars.get(i).getPosition() == topPositionCars.getFirst().getPosition()) {
             topPositionCars.add(racingCars.get(i));
         }
     }
