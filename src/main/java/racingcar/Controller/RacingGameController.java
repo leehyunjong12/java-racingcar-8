@@ -51,5 +51,6 @@ public class RacingGameController {
             outputView.printRaceState(currentStatus);
         }
         List<String> winners = racingService.selectWinners();
+        outputView.printWinners(winners);
     }
 }

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -59,6 +60,15 @@ public class OutputViewTest {
                 .isEqualTo("pobi : -\n"
                         + "woni : \n"
                         + "jun : -\n\n");
+    }
+
+    @Test
+    @DisplayName("우승자 출력 확인")
+    void printWinners() {
+        List<String> winners = List.of("pobi", "woni", "jun");
+        outputView.printWinners(winners);
+        assertThat(outPutContent.toString())
+                .isEqualTo("최종 우승자 : pobi, woni, jun");
     }
 }
 
