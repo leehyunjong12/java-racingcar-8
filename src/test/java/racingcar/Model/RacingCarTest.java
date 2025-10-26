@@ -8,7 +8,7 @@ public class RacingCarTest {
 
     @Test
     @DisplayName("RacingCar 모델 출력 확인")
-    void checkRacingCaModelStringr() {
+    void getCarStatusAsString() {
         RacingCar car1 = new RacingCar("Car1");
         car1.move();
         Assertions.assertThat(car1.getCarStatusAsString()).isEqualTo("Car1 : -");
