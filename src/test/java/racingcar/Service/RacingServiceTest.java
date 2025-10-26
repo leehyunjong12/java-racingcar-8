@@ -1,5 +1,7 @@
 package racingcar.Service;
 
+import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
+
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,8 @@ public class RacingServiceTest {
 
     RacingService racingService;
     RacingCarRepository racingCarRepository;
+    private static final int MOVING_FORWARD = 4;
+    private static final int STOP = 3;
 
     @BeforeEach
     void setUp() {
@@ -34,46 +38,36 @@ public class RacingServiceTest {
     }
 
     @Test
-    @DisplayName("라운드 10번 진행해서 전진이 있었는지 확인")
+    @DisplayName("한 라운드 진행시 변화값 확인")
     void runSingleRound() {
         List<String> carNames = List.of("pobi", "woni", "jun");
         racingService.createRacingCars(carNames);
 
-        List<RacingCar> carsBefore = racingCarRepository.getRacingCars();
-        List<Integer> positionsBefore = carsBefore.stream()
-                .map(RacingCar::getPosition)
-                .toList();
-
-        boolean atLeastOneMoved = false;
-        int attempts = 10; // 반복 횟수
-        for (int j = 0; j < attempts; j++) {
-            racingService.runSingleRound();
-
-            List<RacingCar> carsAfter = racingCarRepository.getRacingCars();
-            for (int i = 0; i < carsAfter.size(); i++) {
-                if (carsAfter.get(i).getPosition() > positionsBefore.get(i)) {
-                    atLeastOneMoved = true;
-                    break;
-                }
-            }
-            if (atLeastOneMoved) {
-                break;
-            }
-        }
-
-        Assertions.assertThat(atLeastOneMoved).isTrue();
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingService.runSingleRound();
+                    List<RacingCar> racingCars = racingCarRepository.getRacingCars();
+                    Assertions.assertThat(racingCars.get(0).getPosition()).isEqualTo(1);
+                    Assertions.assertThat(racingCars.get(1).getPosition()).isEqualTo(0);
+                    Assertions.assertThat(racingCars.get(2).getPosition()).isEqualTo(1);
+                },
+                MOVING_FORWARD, STOP, MOVING_FORWARD
+        );
     }
 
     @Test
-    @DisplayName("한 라운드 진행 결과 출력 확인")
+    @DisplayName("현재 자동차들 진행 상태 확인")
     void getCarsStatus() {
         List<String> carNames = List.of("pobi", "woni", "jun");
         racingService.createRacingCars(carNames);
-
-        String status = racingCarRepository.getCarsStatusAsString();
-
-        // 초기 상태에서는 이동 전 position 0
-        Assertions.assertThat(status).isEqualTo("pobi : \nwoni : \njun : \n");
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingService.runSingleRound();
+                    String status = racingService.getCarsStatus();
+                    Assertions.assertThat(status).isEqualTo("pobi : -\nwoni : \njun : -\n");
+                },
+                MOVING_FORWARD, STOP, MOVING_FORWARD
+        );
     }
 
     @Test
@@ -81,13 +75,17 @@ public class RacingServiceTest {
     void selectWinner() {
         List<String> carNames = List.of("pobi", "woni", "jun");
         racingService.createRacingCars(carNames);
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingService.runSingleRound();
+                    racingService.runSingleRound();
+                    List<String> winners = racingService.selectWinners();
+                    Assertions.assertThat(winners).containsExactlyInAnyOrder("pobi", "jun");
+                },
+                MOVING_FORWARD, STOP, MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD
+        );
 
-        List<RacingCar> racingCars = racingCarRepository.getRacingCars();
-        racingCars.get(0).move();
-        racingCars.get(2).move();
 
-        List<String> winners = racingService.selectWinners();
-        Assertions.assertThat(winners).containsExactlyInAnyOrder("pobi", "jun");
     }
 
 }

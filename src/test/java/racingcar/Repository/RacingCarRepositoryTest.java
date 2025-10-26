@@ -1,5 +1,7 @@
 package racingcar.Repository;
 
+import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -10,6 +12,8 @@ import racingcar.Model.RacingCar;
 public class RacingCarRepositoryTest {
 
     RacingCarRepository racingCarRepository;
+    private static final int MOVING_FORWARD = 4;
+    private static final int STOP = 3;
 
     @Test
     @DisplayName("RacingCarRepository 생성 확인")
@@ -24,55 +28,50 @@ public class RacingCarRepositoryTest {
     }
 
     @Test
-    @DisplayName("moveAllCarsRandomly 함수 작동 확인(최소 한 번 전진하면 성공)")
+    @DisplayName("moveAllCarsRandomly 함수 작동 확인")
     void moveAllCarsRandomly() {
         RacingCarRepository racingCarRepository = new RacingCarRepository(List.of("car1", "car2"));
         List<RacingCar> racingCars = racingCarRepository.getRacingCars();
 
-        List<Integer> before = new ArrayList<>();
-        for (RacingCar car : racingCars) {
-            before.add(car.getPosition());
-        }
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingCarRepository.moveAllCarsRandomly();
 
-        boolean anyMoved = false;
-        // 확률을 높이기 위해 50회 moveAllCarsRandomly
-        for (int k = 0; k < 50; k++) {
-            racingCarRepository.moveAllCarsRandomly();
-            for (int i = 0; i < racingCars.size(); i++) {
-                int afterPos = racingCars.get(i).getPosition();
-                if (afterPos > before.get(i)) {
-                    anyMoved = true;
-                    break;
-                }
-            }
-            if (anyMoved) {
-                break;
-            }
-        }
-        Assertions.assertThat(anyMoved).isTrue();
+                    Assertions.assertThat(racingCars.get(0).getPosition()).isEqualTo(1);
+                    Assertions.assertThat(racingCars.get(1).getPosition()).isEqualTo(0);
+                },
+                MOVING_FORWARD, STOP
+        );
     }
+
 
     @Test
     @DisplayName("getCarsStatusAsString 함수 작동 확인")
     void getCarsStatusAsString() {
         racingCarRepository = new RacingCarRepository(List.of("car1", "car2"));
-
-        String status = racingCarRepository.getCarsStatusAsString();
-
-        // 초기 상태에서는 이동 전 position 0
-        Assertions.assertThat(status).isEqualTo("car1 : \ncar2 : \n");
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingCarRepository.moveAllCarsRandomly();
+                    String status = racingCarRepository.getCarsStatusAsString();
+                    Assertions.assertThat(status).isEqualTo("car1 : -\ncar2 : \n");
+                },
+                MOVING_FORWARD, STOP
+        );
     }
 
     @Test
     @DisplayName("getTopPositionCarNames 함수 작동 확인")
     void getTopPositionCarNames() {
         racingCarRepository = new RacingCarRepository(List.of("car1", "car2", "car3"));
-        List<RacingCar> racingCars = racingCarRepository.getRacingCars();
+        assertRandomNumberInRangeTest(
+                () -> {
+                    racingCarRepository.moveAllCarsRandomly();
+                    racingCarRepository.moveAllCarsRandomly();
+                    List<String> topCars = racingCarRepository.getTopPositionCarNames();
+                    Assertions.assertThat(topCars).containsExactlyInAnyOrder("car3");
+                },
+                MOVING_FORWARD, STOP, MOVING_FORWARD, STOP, STOP, MOVING_FORWARD
+        );
 
-        racingCars.get(0).move();
-        racingCars.get(2).move();
-
-        List<String> topCars = racingCarRepository.getTopPositionCarNames();
-        Assertions.assertThat(topCars).containsExactlyInAnyOrder("car1", "car3");
     }
 }
